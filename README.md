@@ -11,7 +11,7 @@ ___
 **About:** 
 &nbsp;
 
-This repository contains the code for a simple blogging application mainly written in Flask with basic login functionality developed in preparation for my Repository containing code I developed during my time as a Software Engineer Intern for USC's Information Science Institute. 
+Repository containing code I developed during my time as a Software Engineer Intern for USC's Information Science Institute. 
 
 
 **Technologies:**
