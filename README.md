@@ -1,7 +1,3 @@
-# REU
-Repository containing code I developed during my time as a Software Engineer Intern for USC's Information Science Institute. 
-&nbsp;
-
 <img align="left" alt="git" width="24px" src="https://user-images.githubusercontent.com/67522964/147704862-04267bff-13d7-439f-821d-97ab785a8792.png" /> 
 <img align="left" alt="git" width="24px" src="https://user-images.githubusercontent.com/67522964/147705253-d3f9d43f-0559-4d4e-b55b-0ab5f287bacd.png" /> 
 <img align="left" alt="git" width="24px" src="https://user-images.githubusercontent.com/67522964/147704862-04267bff-13d7-439f-821d-97ab785a8792.png" /> 
