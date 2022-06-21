@@ -8,9 +8,6 @@ class Bank:
     def __init__(self, bank_balance) -> None:
         self.bank_balance = bank_balance
 
-    def __add__(self, value) -> None:
-        self.bank_balance += value
-
 
 class Agent:
     name, prev_move, curr_move = None, None, None
@@ -19,42 +16,47 @@ class Agent:
         self.balance = balance
 
     # apply payoff matrix to balance of Agents and Bank after transaction
+    def __payoff__(self, other) -> list:
+        # return list of changes to balances
 
-    def __payoff__(self, other) -> None:
         if self.curr_move == 1 and other.curr_move == 1:
-            self.balance += 1
-            other.balance += 1
-            # bank_balance -= 2
+            return [1, 1, -2]
 
         elif self.curr_move == 0 and other.curr_move == 0:
             # self.balance += -2
             # other.balance += -2
             # bank_balance += 4
-            pass
+            return [-2, -2, 4]
 
         elif self.curr_move == 1 and other.curr_move == 0:
             # self.balance += -3
             # other.balance += 3
             # bank_balance += 0
-            pass
+            return [-3, 3, 0]
 
         elif self.curr_move == 0 and other.curr_move == 1:
             # self.balance += 3
             # other.balance += -3
             # bank_balance += 0
-            pass
+            return [3, -3, 0]
 
     def __transact__(self, other) -> None:
+        # record previous move for next iteration before continuing transaction
         self.prev_move = self.curr_move
         other.prev_move = other.curr_move
 
+        # if any Agent in transaction is TitForTat, check opposing Agent prev_move to determine curr_move
         if self is TitForTat and other.prev_move != None:
             self.curr_move = other.prev_move
 
         if other is TitForTat and self.prev_move != None:
             other.curr_move = self.prev_move
 
-        self.__payoff__(other)
+        change_balance = self.__payoff__(other)
+
+        self.balance += change_balance[0]
+        other.balance += change_balance[1]
+        bank.bank_balance += change_balance[2]
 
 
 class Defector(Agent):
