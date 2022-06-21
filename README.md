@@ -13,7 +13,7 @@ ___
 
 Repository containing code I developed during my time as a Software Engineer Intern for USC's Information Science Institute. 
 
-I conduct research alongside Professor [Mayank Kejriwal](https://usc-isi-i2.github.io/kejriwal/) on his work regarding [Open-World Game Theory](https://reu.isi.edu/projects.html). We will study AI systems applied to real-world settings with multiple selfishly-maximizing agents by utilizing Game Theory to model informational complexity of various environments, agent payoffs, decision matrices, and incomplete information. This internship is through the National Science Foundation (NSF)’s [Research Experience for Undergraduates (REU)](https://www.nsf.gov/crssprgm/reu/) program. 
+I conduct research alongside Professor [Mayank Kejriwal](https://usc-isi-i2.github.io/kejriwal/) on his work regarding [Open-World Game Theory](https://reu.isi.edu/projects.html). We study AI systems applied to real-world settings with multiple selfishly-maximizing agents by utilizing Game Theory to model informational complexity of various environments, agent payoffs, decision matrices, and incomplete information. This internship is through the National Science Foundation (NSF)’s [Research Experience for Undergraduates (REU)](https://www.nsf.gov/crssprgm/reu/) program. 
 
 
 **Technologies:**
