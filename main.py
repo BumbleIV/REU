@@ -16,7 +16,16 @@ def main():
                          create_using=nx.Graph(),
                          nodetype=int)
 
-    print(G.nodes)
+    print(nx.info(G))
+
+    sp = nx.spring_layout(G)
+    nx.draw(G,
+            pos=sp,
+            with_labels=False,
+            node_size=10,)
+
+    plt.show()
+    
 
 
 if __name__ == "__main__":
