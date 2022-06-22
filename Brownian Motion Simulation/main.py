@@ -17,26 +17,50 @@
 
 # Algorithm:
 # 1. Initialize M = {}
-# 2. Assign each node in V input amount of blue and red balls
-# 3. Randomize then fix the order of nodes in V to traverse
-# 4. Randomly select a starting current_node in V
+# 2. Attribute each node in V input amount of blue and red balls
+# 3. Randomize then fix the order of nodes to in V and record new order in V' = {}
+# 4. Select V'[i] as current_node
 # 5. Record the current_node in M for each ball attributed to current_node
-# 6. Randomly select a neighbor_node of current_node in V
+# 6. Select a neighbor_node of current_node
 # 7. Record the neighbor_node in M for each ball attributed to neighbor_node
-# 8. Apply the following rules of transactions between current_node and neighbor_node:
-#    a. [insert rule]
-#    b. [insert rule]
-#    c. [insert rule]
-#    d. [insert rule]
-# 9. Assign neighbor_node as new current_node
-# 10. Repeat steps 5-9 until n iterations
-# 11. Return M
+# 8. Randomly sample 1 ball each from current_node and neighbor_node then apply following rules:
+#    a. If both balls sampled are the same color, the no transaction occurs
+#    b. If both balls sampled are different colors, the red ball is removed from its owner node and given to the opposing node
+# 9. Repeat steps 6-9 until all neighbor_node of current_node are visited
+# 10. Select next current_node in V'
+# 11. Repeat steps 5-10 until n iterations are completed
+# 12. Return M
 
 
 # Use M for plots and data analysis.
 
+
+import networkx as nx
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+
+
+def RedBallBlueBall(G, n: int, blue: int, red: int) -> dict:
+    # 1. Initialize M = {}
+    M = {}
+
+    # 2. Attribute each node in V input amount of blue and red balls
+    for node in G.nodes():
+        pass
+
+    return M
+
+
 def main():
-    pass
+    # generate a random graph with a random number of nodes and edges (between 5 and 30 for now)
+    G = nx.gnm_random_graph(n=random.randint(5, 30), m=random.randint(5, 30))
+
+    # draw the graph
+    # nx.draw(G, with_labels=False, node_size=10)
+    # plt.show()
+
+    M = RedBallBlueBall(G, n=10, blue=5, red=5)
 
 
 if __name__ == "__main__":
