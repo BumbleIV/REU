@@ -18,17 +18,17 @@
 # Algorithm:
 # 1. Initialize M = {}
 # 2. Assign each node in V input amount of blue and red balls
-# 3. Randomize then fix the order nodes in V to traverse
+# 3. Randomize then fix the order of nodes in V to traverse
 # 4. Randomly select a starting current_node in V
-# 5. Record the current_node in M for each ball
+# 5. Record the current_node in M for each ball attributed to current_node
 # 6. Randomly select a neighbor_node of current_node in V
-# 7. Record the neighbor_node in M for each ball
-# 8. Apply the following rules of transactions between balls of current_node and neighbor_node:
+# 7. Record the neighbor_node in M for each ball attributed to neighbor_node
+# 8. Apply the following rules of transactions between current_node and neighbor_node:
 #    a. [insert rule]
 #    b. [insert rule]
 #    c. [insert rule]
 #    d. [insert rule]
-# 9. Assign current_node as neighbor_node
+# 9. Assign neighbor_node as new current_node
 # 10. Repeat steps 5-9 until n iterations
 # 11. Return M
 
