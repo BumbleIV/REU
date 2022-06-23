@@ -39,6 +39,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 
+import helperfunctions as hf
+
 
 def RedBallBlueBall(G, n: int, blue_amt: int, red_amt: int) -> dict:
     # 1. Initialize M = {}
@@ -63,7 +65,7 @@ def RedBallBlueBall(G, n: int, blue_amt: int, red_amt: int) -> dict:
         for ball_ID in G.nodes[i]['Balls']:
             M[ball_ID] = [G.nodes[i]['node_ID']]
 
-    # 4. Copy G into V_2 then randomize (and fix) the order of nodes in V_2
+    # 4. Copy G.nodes into V_2 then randomize (and fix) the order of nodes in V_2
     V_2 = list(G.nodes)
     random.shuffle(V_2)
 
@@ -113,8 +115,8 @@ def main():
     M = RedBallBlueBall(G, n=100, blue_amt=5, red_amt=5)
 
     # display key-value pairs of M on new line
-    for key, value in M.items():
-        print("{}: {}".format(key, value) + "\n")
+    # for key, value in M.items():
+    #     print("{}: {}".format(key, value) + "\n")
 
     # find node with most amount of balls (notice that the node with the most balls is the last node in a list of node_IDs)
     max_balls = 0
@@ -123,9 +125,9 @@ def main():
         if len(G.nodes[i]['Balls']) > max_balls:
             max_balls = len(G.nodes[i]['Balls'])
             max_node = i
-
-    print(max_node)
-    print(G.nodes[max_node]['Balls'])
+        
+    print(max_node, max_balls)
+    print(hf.node_most_balls(M))
 
     # draw the graph
     nx.draw(G, with_labels=True, node_size=10)
