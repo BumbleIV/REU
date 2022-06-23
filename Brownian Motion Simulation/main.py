@@ -79,7 +79,7 @@ def RedBallBlueBall(G, n: int, blue_amt: int, red_amt: int) -> dict:
                 color_curr = ball_curr.split("_")[0]
                 color_neigh = ball_neigh.split("_")[0]
 
-                #    a. If both balls sampled are the same color, the no transaction occurs
+                #    a. If both balls sampled are the same color, then no transaction occurs
                 #    b. If both balls sampled are different colors, the red ball is removed from its owner node and given to the opposing node
                 #       b1. Append the node_ID that the red ball is removed from to the list of node_IDs paired with red ball_ID
                 if color_curr == "red" and color_neigh == "blue":
@@ -114,18 +114,26 @@ def main():
 
     # display key-value pairs of M on new line
     for key, value in M.items():
-        print("{}: {}".format(key, value))
+        print("{}: {}".format(key, value) + "\n")
+
+    # find node with most amount of balls (notice that the node with the most balls is the last node in a list of node_IDs)
+    max_balls = 0
+    max_node = None
+    for i in G:
+        if len(G.nodes[i]['Balls']) > max_balls:
+            max_balls = len(G.nodes[i]['Balls'])
+            max_node = i
+
+    print(max_node)
+    print(G.nodes[max_node]['Balls'])
 
     # draw the graph
-    # nx.draw(G, with_labels=False, node_size=10)
-    # plt.show()
-
-    # Insert Data Analysis Code of M here
-    pass
+    nx.draw(G, with_labels=True, node_size=10)
+    plt.show()
 
 
 if __name__ == "__main__":
     main()
 
 
-# Could I possibly create a Ball object that has an ID, a color, and a list of nodes it has traveled to?
+# Could I possibly create a Ball object that has an ID, a color, and a list of nodes it has traveled to? Would that even simplify the algorithm?
