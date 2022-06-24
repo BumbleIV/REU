@@ -39,7 +39,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 
-import helperfunctions as hf
+import helper_functions as hf
 
 
 def RedBallBlueBall(G, n: int, blue_amt: int, red_amt: int) -> dict:
@@ -109,7 +109,7 @@ def main():
 
     # Output:
     M = RedBallBlueBall(G, n=100, blue_amt=5, red_amt=5)
-        
+
     print(hf.node_most_balls(M))
     print(hf.node_most_balls_2(G))
 
