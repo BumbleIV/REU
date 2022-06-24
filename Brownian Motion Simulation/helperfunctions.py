@@ -1,6 +1,3 @@
-import main as m
-
-
 def node_most_balls(M: dict) -> tuple:
     map = {}
 
@@ -12,5 +9,17 @@ def node_most_balls(M: dict) -> tuple:
         else:
             map[last_node] = 1
 
-    return (max(map, key=map.get), map[max(map, key=map.get)])
+    node = max(map, key=map.get)
+    return node, map[node]
 
+
+def node_most_balls_2(G) -> tuple:
+    max_balls = 0
+    max_node = None
+
+    for i in G:
+        if len(G.nodes[i]['Balls']) > max_balls:
+            max_balls = len(G.nodes[i]['Balls'])
+            max_node = i
+
+    return (max_node, max_balls)

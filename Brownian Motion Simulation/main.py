@@ -118,16 +118,9 @@ def main():
     # for key, value in M.items():
     #     print("{}: {}".format(key, value) + "\n")
 
-    # find node with most amount of balls (notice that the node with the most balls is the last node in a list of node_IDs)
-    max_balls = 0
-    max_node = None
-    for i in G:
-        if len(G.nodes[i]['Balls']) > max_balls:
-            max_balls = len(G.nodes[i]['Balls'])
-            max_node = i
         
-    print(max_node, max_balls)
     print(hf.node_most_balls(M))
+    print(hf.node_most_balls_2(G))
 
     # draw the graph
     nx.draw(G, with_labels=True, node_size=10)
