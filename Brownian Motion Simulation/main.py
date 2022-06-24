@@ -105,19 +105,10 @@ def RedBallBlueBall(G, n: int, blue_amt: int, red_amt: int) -> dict:
 
 
 def main():
-    # Input:
-
-    # Network Model: G = (V, E)
-    # generate a random graph with a random number of nodes and edges (between 5 and 10 for now)
     G = nx.gnm_random_graph(n=random.randint(5, 10), m=random.randint(5, 10))
 
     # Output:
     M = RedBallBlueBall(G, n=100, blue_amt=5, red_amt=5)
-
-    # display key-value pairs of M on new line
-    # for key, value in M.items():
-    #     print("{}: {}".format(key, value) + "\n")
-
         
     print(hf.node_most_balls(M))
     print(hf.node_most_balls_2(G))

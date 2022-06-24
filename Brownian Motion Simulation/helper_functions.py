@@ -5,7 +5,7 @@ def print_map(M: dict) -> None:
 
 
 # returns node with most balls in map as tuple
-def node_most_balls(M: dict) -> tuple:
+def max_balls_map(M: dict) -> tuple:
     map = {}
 
     for ball_ID in M:
@@ -21,7 +21,7 @@ def node_most_balls(M: dict) -> tuple:
 
 
 # returns node with most balls in graph as tuple
-def node_most_balls_2(G) -> tuple:
+def max_balls_graph(G) -> tuple:
     max_balls = 0
     max_node = None
 
