@@ -1,5 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from numpy import array
 
 # prints map
 
@@ -13,8 +14,9 @@ def draw_graph(G) -> None:
     nx.draw(G, with_labels=True)
     plt.show()
 
-
 # returns node with most balls in map as tuple (node, max_balls)
+
+
 def max_balls_map(M: dict) -> tuple:
     map = {}
 
@@ -41,3 +43,18 @@ def max_balls_graph(G) -> tuple:
             max_node = i
 
     return (max_node, max_balls)
+
+# returns a numpy array of ints containing number of red balls in each node of input list
+
+
+def red_balls_list(G, V: list) -> list:
+    red_balls_list = []
+
+    for i in V:
+        count = 0
+        for ball in G.nodes[i]['Balls']:
+            if ball.startswith("red"):
+                count += 1
+        red_balls_list.append(count)
+
+    return red_balls_list

@@ -31,6 +31,7 @@
 # 10. Return M
 
 
+from matplotlib import markers
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
@@ -52,9 +53,9 @@ def RedBallBlueBall(G, n: int = 100, blue_amt: int = 5, red_amt: int = 5) -> dic
             "red",
             j + (i * red_amt)) for j in range(red_amt)]
 
-        G.nodes[i]['node_ID'] = i
-
         G.nodes[i]['Balls'] = blue_balls + red_balls
+
+        G.nodes[i]['node_ID'] = i
 
         for ball_ID in G.nodes[i]['Balls']:
             M[ball_ID] = [G.nodes[i]['node_ID']]
@@ -62,17 +63,9 @@ def RedBallBlueBall(G, n: int = 100, blue_amt: int = 5, red_amt: int = 5) -> dic
     V_2 = list(G.nodes)
     random.shuffle(V_2)
 
+    std_dev_list = []
     for i in range(n):
-        red_balls = []
-
         for current_node in V_2:
-            count = 0
-            for ball in G.nodes[current_node]['Balls']:
-                if ball.startswith("red"):
-                    count += 1
-
-            red_balls.append(count)
-
             for neighbor_node in list(G.neighbors(current_node)):
                 ball_curr = random.choice(G.nodes[current_node]['Balls'])
                 ball_neigh = random.choice(G.nodes[neighbor_node]['Balls'])
@@ -89,32 +82,29 @@ def RedBallBlueBall(G, n: int = 100, blue_amt: int = 5, red_amt: int = 5) -> dic
 
                     M[ball_neigh].append(G.nodes[current_node]['node_ID'])
 
-        plt.plot(i, np.std(red_balls), 'ro')
-        print(np.std(red_balls))
+        red_balls_list = hf.red_balls_list(G, V_2)
+        std_dev = np.std(red_balls_list)
+        std_dev_list.append(std_dev)
 
+        plt.plot(i, std_dev, '-o',  markersize=0.5)
+
+        print("Standard Deviation at {}: {}".format(i, std_dev))
+        print(red_balls_list)
+        print("\n")
+
+    print(np.average(std_dev_list))
     plt.show()
 
     return M
 
 
 def main():
-    G = nx.gnm_random_graph(n=random.randint(5, 10),
-                            m=random.randint(5, 10))
-    n = 100
+    G = nx.gnm_random_graph(n=random.randint(10, 15),
+                            m=random.randint(10, 15))
+    n = 5000
     blue_amt, red_amt = 5, 5
 
     M = RedBallBlueBall(G, n, blue_amt, red_amt)
-
-    # create list containing the amount of red balls (not blue balls) each node has and use that to compute the standard deviation
-    red_balls = []
-    for node in G:
-        count = 0
-
-        for ball in G.nodes[node]['Balls']:
-            if ball.startswith("red"):
-                count += 1
-
-        red_balls.append(count)
 
 
 if __name__ == "__main__":
