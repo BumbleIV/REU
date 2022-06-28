@@ -43,6 +43,7 @@ import helper_functions as hf
 
 def RedBallBlueBall(G, n: int = 100, blue_amt: int = 5, red_amt: int = 5) -> dict:
     M = {}
+    LD = {}
 
     for i in G:
         blue_balls = ["{}_{}".format(
@@ -64,6 +65,7 @@ def RedBallBlueBall(G, n: int = 100, blue_amt: int = 5, red_amt: int = 5) -> dic
     random.shuffle(V_2)
 
     std_dev_list = []
+
     for i in range(n):
         for current_node in V_2:
             for neighbor_node in list(G.neighbors(current_node)):
@@ -82,18 +84,27 @@ def RedBallBlueBall(G, n: int = 100, blue_amt: int = 5, red_amt: int = 5) -> dic
 
                     M[ball_neigh].append(G.nodes[current_node]['node_ID'])
 
-        red_balls_list = hf.red_balls_list(G, V_2)
-        std_dev = np.std(red_balls_list)
-        std_dev_list.append(std_dev)
+        print(M["red_0"])
 
-        plt.plot(i, std_dev, '-o',  markersize=0.5)
+        for ball_ID in M:
+            if ball_ID.startswith("red"):
 
-        print("Standard Deviation at {}: {}".format(i, std_dev))
-        print(red_balls_list)
+                distance = len(M[ball_ID]) - 1
+
+                if ball_ID not in LD:
+                    LD[ball_ID] = []
+
+                LD[ball_ID].append((i, distance))
+
+        print(LD["red_0"])
+
         print("\n")
 
-    print(np.average(std_dev_list))
-    plt.show()
+    #     red_balls_list = hf.red_balls_list(G, V_2)
+    #     std_dev = np.std(red_balls_list)
+    #     std_dev_list.append(std_dev)
+
+    # hf.std_dev_plot(np.arange(n), std_dev_list)
 
     return M
 
@@ -101,10 +112,12 @@ def RedBallBlueBall(G, n: int = 100, blue_amt: int = 5, red_amt: int = 5) -> dic
 def main():
     G = nx.gnm_random_graph(n=random.randint(10, 15),
                             m=random.randint(10, 15))
-    n = 5000
+    n = 10
     blue_amt, red_amt = 5, 5
 
     M = RedBallBlueBall(G, n, blue_amt, red_amt)
+
+    hf.draw_graph(G)
 
 
 if __name__ == "__main__":
