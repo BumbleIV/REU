@@ -1,10 +1,20 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
 # prints map
+
+
 def print_map(M: dict) -> None:
     for key, value in M.items():
         print("{}: {}".format(key, value) + "\n")
 
 
-# returns node with most balls in map as tuple
+def draw_graph(G) -> None:
+    nx.draw(G, with_labels=True)
+    plt.show()
+
+
+# returns node with most balls in map as tuple (node, max_balls)
 def max_balls_map(M: dict) -> tuple:
     map = {}
 
@@ -20,7 +30,7 @@ def max_balls_map(M: dict) -> tuple:
     return (node, map[node])
 
 
-# returns node with most balls in graph as tuple
+# returns node with most balls in graph as tuple (node, max_balls)
 def max_balls_graph(G) -> tuple:
     max_balls = 0
     max_node = None

@@ -9,7 +9,11 @@ import helper_functions as hf
 G = nx.gnm_random_graph(n=random.randint(5, 10),
                         m=random.randint(5, 10))
 
-M = sim.RedBallBlueBall(G, n=100, blue_amt=5, red_amt=5)
+n = 100
+blue_amt = 5
+red_amt = 5
+
+M = sim.RedBallBlueBall(G, n, blue_amt, red_amt)
 
 
 class TestSimulation(unittest.TestCase):
@@ -18,7 +22,7 @@ class TestSimulation(unittest.TestCase):
     def test_node_max_balls(self):
         self.assertEqual(hf.max_balls_graph(G), hf.max_balls_map(M))
 
-    # select random node from G and track number of balls 
+    # select random node from G and track number of balls
     def test_map_tracking(self):
         pass
 
@@ -37,6 +41,11 @@ class TestSimulation(unittest.TestCase):
 
     # validate sampling of two balls is random
     def test_random_sampling(self):
+        pass
+
+    # assert that for any given node the number of balls that has moved to or away from that node is \
+    # equal to 2kn where k is the number of neighbors of that node and n is the number of iterations
+    def test_transaction(self):
         pass
 
 

@@ -120,6 +120,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# Could I possibly create a Ball object that has an ID, a color, and a list of nodes it has traveled to? Would that even simplify the algorithm?
