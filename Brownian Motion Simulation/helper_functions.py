@@ -1,3 +1,4 @@
+from tkinter import font
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
@@ -38,6 +39,7 @@ def plot_M(M: dict) -> None:
     # Plot Configuration
     # plt.rcParams["figure.figsize"] = [10000000, 10]
     # plt.rcParams["figure.autolayout"] = True
+    # plt.style.use('ggplot')
     plt.xlabel('Node_ID')
     plt.ylabel('Number of Moves')
     plt.title('Number of Times Each Ball Moves Between Nodes')
@@ -47,36 +49,45 @@ def plot_M(M: dict) -> None:
         if ball_ID.startswith("red"):
             x = ball_ID
             y = len(move_list) - 1
-            plt.bar(x, y, color='r', label=ball_ID, width=5)
-            plt.text(x, y, str(y), ha='center', va='bottom')
+            plt.bar(x, y, label=ball_ID, color='r')
+            plt.text(x, y, str(y), ha='center', va='bottom', fontsize=3)
 
-    plt.xticks(rotation=90)
+    plt.xticks(fontsize=6, rotation=90)
     # plt.legend()
-    plt.show()
+    # plt.show()
 
 
-# plot the displacement of each ball in each node
-def plot_DT(DT: dict) -> None:
-    # Plot Configuration
-    plt.rcParams["figure.figsize"] = [10, 10]
-    plt.rcParams["figure.autolayout"] = True
+# Average Displacement from given starting node of Red Balls in M at each iteration
+def plot_DT(DT: list) -> None:
+    plt.style.use('ggplot')
     plt.xlabel('Iterations')
-    plt.ylabel('Distance')
-    plt.title('Distance of Red Balls from Node at Each Iteration')
+    plt.ylabel('Average Displacement')
+    plt.title('Average Displacement of All Red Balls')
 
-    for ball_ID, distance_list in DT.items():
-        x, y = zip(*distance_list)
-        plt.plot(x, y, label=ball_ID)
+    x, y = zip(*DT)
 
-    # plt.legend()
-    plt.show()
+    plt.plot(x, y, 'ro-',
+             label='Average Displacement',
+             linewidth=0.5,
+             markersize=0.5)
+
+    poly = np.poly1d(np.polyfit(x, y, 1))
+    plt.plot(x, poly(x), 'y-',
+             label='Linear Fit',
+             linewidth=2.0)
+
+    mean_displacement = np.mean(y)
+    plt.axhline(mean_displacement, color='k',
+                label='Mean Displacement',
+                linewidth=2.0)
+
+    plt.legend()
+    # plt.show()
 
 
 # custom plots of standard deviation of red balls in each node
 def plot_DEV(DEV: list) -> None:
-    # Plot Configuration
-    plt.rcParams["figure.figsize"] = [10, 10]
-    plt.rcParams["figure.autolayout"] = True
+    plt.style.use('ggplot')
     plt.xlabel('Iterations')
     plt.ylabel('Standard Deviation')
     plt.title(
@@ -84,24 +95,20 @@ def plot_DEV(DEV: list) -> None:
 
     x, y = zip(*DEV)
 
-    # Standard Deviation Plot
     plt.plot(x, y, 'ro-',
              label="Standard Deviation",
              linewidth=0.5,
              markersize=0.5)
 
-    # Line of Best Fit Plot
-    # slope, intercept = np.polyfit(x, y, 1)
-    # plt.plot(x, slope * x + intercept, 'b-',
-    #          label="Line of Best Fit",
-    #          linewidth=0.5)
+    poly = np.poly1d(np.polyfit(x, y, 1))
+    plt.plot(x, poly(x), 'y-',
+             label='Linear Fit',
+             linewidth=2.0)
 
-    # Mean Standard Deviation Plot
     mean_std_dev = np.mean(y)
-
-    plt.axhline(mean_std_dev, color='g',
+    plt.axhline(mean_std_dev, color='k',
                 label="Average Standard Deviation",
                 linewidth=2.0)
 
     plt.legend()
-    plt.show()
+    # plt.show()

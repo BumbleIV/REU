@@ -37,7 +37,7 @@ I conduct research alongside Professor [Mayank Kejriwal](https://usc-isi-i2.gith
 
 # Algorithm:
 # 1. Initialize M = {}
-# 2. Attribute each node in G a node_ID, blue_amt and red_amt balls
+# 2. Attribute each node in G a blue_amt and red_amt balls
 # 3. Enter blue_IDs and red_IDs into M as keys with empty lists as values
 # 4. Copy G into V_2 then randomize (and fix) the order of nodes in V_2
 # 5. Select current_node and neighbor_node from V_2

@@ -43,7 +43,9 @@ def add_to_M(G, V_2: list, M: dict) -> None:
                 M[ball_neigh].append(current_node)
 
 
-def add_to_DT(G, M: dict, i: int, DT: dict) -> None:
+def add_to_DT(G, M: dict, i: int, DT: list) -> None:
+    displacement_list = []
+
     for ball_ID in M:
         if ball_ID.startswith("red"):
             start_node = M[ball_ID][0]
@@ -51,10 +53,10 @@ def add_to_DT(G, M: dict, i: int, DT: dict) -> None:
 
             displacement = nx.shortest_path_length(G, start_node, end_node)
 
-            if ball_ID not in DT:
-                DT[ball_ID] = []
+            displacement_list.append(displacement)
 
-            DT[ball_ID].append((i, displacement))
+    std_dev = np.std(displacement_list)
+    DT.append((i, std_dev))
 
 
 # appends calculated standard deviation of red balls contained by each node to DEV list
