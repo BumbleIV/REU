@@ -34,12 +34,8 @@ def node_most_balls(M: dict) -> tuple:
     return (node_ID, balls_count)
 
 
-# bar plot depicting number of times each ball moves between node
+# Bar Plot depicting number of times each ball moves between node
 def plot_M(M: dict) -> None:
-    # Plot Configuration
-    # plt.rcParams["figure.figsize"] = [10000000, 10]
-    # plt.rcParams["figure.autolayout"] = True
-    # plt.style.use('ggplot')
     plt.xlabel('Node_ID')
     plt.ylabel('Number of Moves')
     plt.title('Number of Times Each Ball Moves Between Nodes')
@@ -53,11 +49,10 @@ def plot_M(M: dict) -> None:
             plt.text(x, y, str(y), ha='center', va='bottom', fontsize=3)
 
     plt.xticks(fontsize=6, rotation=90)
-    # plt.legend()
     # plt.show()
 
 
-# Average Displacement from given starting node of Red Balls in M at each iteration
+# Scatter Plot depicting Average Displacement from given starting node of Red Balls in M at each iteration
 def plot_DT(DT: list) -> None:
     plt.style.use('ggplot')
     plt.xlabel('Iterations')
@@ -85,7 +80,7 @@ def plot_DT(DT: list) -> None:
     # plt.show()
 
 
-# custom plots of standard deviation of red balls in each node
+# Scatter Plot of standard deviation of red balls in each node
 def plot_DEV(DEV: list) -> None:
     plt.style.use('ggplot')
     plt.xlabel('Iterations')
