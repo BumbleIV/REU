@@ -59,7 +59,6 @@ def add_to_DT(G, M: dict, i: int, DT: list) -> None:
     DT.append((i, std_dev))
 
 
-# appends calculated standard deviation of red balls contained by each node to DEV list
 def add_to_DEV(G, i: int, DEV: list) -> None:
     red_balls_list = []
 

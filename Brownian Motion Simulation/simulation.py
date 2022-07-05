@@ -31,27 +31,26 @@ def RedBallBlueBall(G, n: int, blue_amt: int, red_amt: int) -> dict:
 def main():
     G = nx.gnm_random_graph(n=15,
                             m=10)
-    n = 10000
+    n = 1000
     blue_amt, red_amt = 5, 5
+    nodes_amt = len(list(G.nodes))
+    edges_amt = len(list(G.edges))
 
-    for i in range(3):
+    M, DT, DEV = {}, [], []
+
+    for i in range(5):
         M, DT, DEV = RedBallBlueBall(G, n, blue_amt, red_amt)
 
-        # hf.draw_graph(G)
-        # print(G.number_of_nodes())
-        # print(G.number_of_edges())
+        hf.plot_M(M)
+        plt.savefig(f"Plots/M{i}.png", dpi=300)
+        plt.close()
 
-        # hf.plot_M(M)
         hf.plot_DT(DT)
-        # hf.plot_DEV(DEV)
+        plt.savefig(f"Plots/DT{i}.png", dpi=300)
+        plt.close()
 
-        # hf.print_map(M)
-        # hf.print_map(DT)
-        # hf.print_map(DEV)
-
-        plt.savefig(f"Plots/DT/DT{i}.png")
-
-        plt.pause(3)
+        hf.plot_DEV(DEV)
+        plt.savefig(f"Plots/DEV{i}.png", dpi=300)
         plt.close()
 
 

@@ -36,28 +36,29 @@ def node_most_balls(M: dict) -> tuple:
 
 # Bar Plot depicting number of times each ball moves between node
 def plot_M(M: dict) -> None:
+    plt.rcParams.update(plt.rcParamsDefault)
     plt.xlabel('Node_ID')
     plt.ylabel('Number of Moves')
     plt.title('Number of Times Each Ball Moves Between Nodes')
 
-    # Bar Plot
     for ball_ID, move_list in M.items():
         if ball_ID.startswith("red"):
             x = ball_ID
             y = len(move_list) - 1
             plt.bar(x, y, label=ball_ID, color='r')
-            plt.text(x, y, str(y), ha='center', va='bottom', fontsize=3)
+            plt.text(x, y, str(y), ha='center', va='bottom', fontsize=1)
 
-    plt.xticks(fontsize=6, rotation=90)
+    plt.xticks(fontsize=3, rotation=90)
     # plt.show()
 
 
 # Scatter Plot depicting Average Displacement from given starting node of Red Balls in M at each iteration
 def plot_DT(DT: list) -> None:
+    plt.rcParams.update(plt.rcParamsDefault)
     plt.style.use('ggplot')
     plt.xlabel('Iterations')
     plt.ylabel('Average Displacement')
-    plt.title('Average Displacement of All Red Balls')
+    plt.title('Average Displacement of Red Balls')
 
     x, y = zip(*DT)
 
@@ -76,17 +77,18 @@ def plot_DT(DT: list) -> None:
                 label='Mean Displacement',
                 linewidth=2.0)
 
-    plt.legend()
+    plt.legend(loc='lower right', fontsize=3)
     # plt.show()
 
 
 # Scatter Plot of standard deviation of red balls in each node
 def plot_DEV(DEV: list) -> None:
+    plt.rcParams.update(plt.rcParamsDefault)
     plt.style.use('ggplot')
     plt.xlabel('Iterations')
     plt.ylabel('Standard Deviation')
     plt.title(
-        'Standard Deviation of Red Balls Contained by All Nodes at Each Iteration')
+        'Standard Deviation of Red Balls in Nodes')
 
     x, y = zip(*DEV)
 
@@ -105,5 +107,5 @@ def plot_DEV(DEV: list) -> None:
                 label="Average Standard Deviation",
                 linewidth=2.0)
 
-    plt.legend()
+    plt.legend(loc='lower right', fontsize=3)
     # plt.show()
