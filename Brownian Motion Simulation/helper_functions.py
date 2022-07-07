@@ -109,3 +109,31 @@ def plot_DEV(DEV: list) -> None:
 
     plt.legend(loc='lower right', fontsize=3)
     # plt.show()
+
+
+def plot_DE(DE: list) -> None:
+    plt.rcParams.update(plt.rcParamsDefault)
+    plt.style.use('ggplot')
+    plt.xlabel('Iterations')
+    plt.ylabel('Average Distance')
+    plt.title('Average Distance of Red Balls')
+
+    x, y = zip(*DE)
+
+    plt.plot(x, y, 'ro-',
+             label='Average Distance',
+             linewidth=0.5,
+             markersize=0.5)
+
+    poly = np.poly1d(np.polyfit(x, y, 1))
+    plt.plot(x, poly(x), 'y-',
+             label='Linear Fit',
+             linewidth=2.0)
+
+    mean_displacement = np.mean(y)
+    plt.axhline(mean_displacement, color='k',
+                label='Mean Distance',
+                linewidth=2.0)
+
+    plt.legend(loc='lower right', fontsize=3)
+    # plt.show()
