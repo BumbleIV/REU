@@ -29,10 +29,8 @@ def RedBallBlueBall(G, n: int, blue_amt: int, red_amt: int) -> dict:
 
 
 def main():
-    G = nx.read_edgelist('facebook_combined.txt',
-                         create_using=nx.Graph(),
-                         nodetype=int)
-
+    G = nx.gnm_random_graph(n=15,
+                            m=10)
     n = 1000
     blue_amt, red_amt = 5, 5
     nodes_amt = len(list(G.nodes))
@@ -44,15 +42,15 @@ def main():
         M, DT, DEV = RedBallBlueBall(G, n, blue_amt, red_amt)
 
         hf.plot_M(M)
-        plt.savefig(f"Plots/M{i}_snap.png", dpi=300)
+        plt.savefig(f"Plots/M{i}.png", dpi=300)
         plt.close()
 
         hf.plot_DT(DT)
-        plt.savefig(f"Plots/DT{i}_snap.png", dpi=300)
+        plt.savefig(f"Plots/DT{i}.png", dpi=300)
         plt.close()
 
         hf.plot_DEV(DEV)
-        plt.savefig(f"Plots/DEV{i}_snap.png", dpi=300)
+        plt.savefig(f"Plots/DEV{i}.png", dpi=300)
         plt.close()
 
 
