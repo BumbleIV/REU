@@ -1,49 +1,64 @@
 import networkx as nx
 import numpy as np
 import random
+import timeit
 
 
-# add red_amt balls and blue_amt balls to G
-def add_to_G(G, blue_amt: int, red_amt: int) -> None:
+# attribute red_amt balls and blue_amt balls to G.nodes
+def update_G(G, blue_amt: int, red_amt: int) -> None:
     for node in list(G.nodes):
-        blue_balls = ["{}_{}".format(
-            "blue",
-            j + (node * blue_amt)) for j in range(blue_amt)]
+        blue_balls = ["blue_{}".format(j + (node * blue_amt))
+                      for j in range(blue_amt)]
 
-        red_balls = ["{}_{}".format(
-            "red",
-            j + (node * red_amt)) for j in range(red_amt)]
+        red_balls = ["red_{}".format(j + (node * red_amt))
+                     for j in range(red_amt)]
 
-        G.nodes[node]['Balls'] = blue_balls + red_balls
+        G.nodes[node]['Blue Balls'] = blue_balls
+        G.nodes[node]['Red Balls'] = red_balls
 
 
 # initialize M
-def initialize_M(G, M: dict) -> None:
+def initialize_M(G) -> dict:
+    M = {}
+
     for node in list(G.nodes):
-        for ball_ID in G.nodes[node]['Balls']:
+        for ball_ID in (G.nodes[node]['Red Balls'] + G.nodes[node]['Blue Balls']):
             M[ball_ID] = [node]
 
+    return M
 
-def add_to_M(G, V_2: list, M: dict) -> None:
+
+def update_M(G, M) -> dict:
+    V_2 = list(G.nodes)
+    random.shuffle(V_2)
+
     for current_node in V_2:
-        for neighbor_node in list(G.neighbors(current_node)):
-            ball_curr = random.choice(G.nodes[current_node]['Balls'])
-            ball_neigh = random.choice(G.nodes[neighbor_node]['Balls'])
+        neighbor_nodes = list(G.neighbors(current_node))
+        neighbor_node = random.choice(neighbor_nodes)
 
-            if ball_curr.startswith("red") and ball_neigh.startswith("blue"):
-                G.nodes[current_node]['Balls'].remove(ball_curr)
-                G.nodes[neighbor_node]['Balls'].append(ball_curr)
+        balls_curr = G.nodes[current_node]['Red Balls'] + \
+            G.nodes[current_node]['Blue Balls']
+        balls_neigh = G.nodes[neighbor_node]['Red Balls'] + \
+            G.nodes[neighbor_node]['Blue Balls']
 
-                M[ball_curr].append(neighbor_node)
+        ball_curr = random.choice(balls_curr)
+        ball_neigh = random.choice(balls_neigh)
 
-            elif ball_curr.startswith("blue") and ball_neigh.startswith("red"):
-                G.nodes[neighbor_node]['Balls'].remove(ball_neigh)
-                G.nodes[current_node]['Balls'].append(ball_neigh)
+        if ball_curr.startswith("red") and ball_neigh.startswith("blue"):
+            G.nodes[current_node]['Red Balls'].remove(ball_curr)
+            G.nodes[neighbor_node]['Red Balls'].append(ball_curr)
 
-                M[ball_neigh].append(current_node)
+            M[ball_curr].append(neighbor_node)
+
+        elif ball_curr.startswith("blue") and ball_neigh.startswith("red"):
+            G.nodes[neighbor_node]['Red Balls'].remove(ball_neigh)
+            G.nodes[current_node]['Red Balls'].append(ball_neigh)
+
+            M[ball_neigh].append(current_node)
 
 
-def add_to_DT(G, M: dict, i: int, DT: list) -> None:
+# Calculate the Average Displacement (length away a ball is from starting node) of all Red Balls at each iteration
+def update_DT(G, M: dict, DT: list) -> None:
     displacement_list = []
 
     for ball_ID in M:
@@ -52,24 +67,19 @@ def add_to_DT(G, M: dict, i: int, DT: list) -> None:
             end_node = M[ball_ID][-1]
 
             displacement = nx.shortest_path_length(G, start_node, end_node)
-
             displacement_list.append(displacement)
 
-    std_dev = np.std(displacement_list)
-    DT.append((i, std_dev))
+    mean_dt = np.mean(displacement_list)
+    DT.append(mean_dt)
 
 
-def add_to_DEV(G, i: int, DEV: list) -> None:
+# Calculate the Standard Deviation of Red Balls contained by all nodes at a given iteration
+def update_DEV(G, DEV: list) -> None:
     red_balls_list = []
 
     for node in list(G.nodes):
-        red_balls_count = 0
-
-        for ball in G.nodes[node]['Balls']:
-            if ball.startswith("red"):
-                red_balls_count += 1
-
+        red_balls_count = len(G.nodes[node]['Red Balls'])
         red_balls_list.append(red_balls_count)
 
     std_dev = np.std(red_balls_list)
-    DEV.append((i, std_dev))
+    DEV.append(std_dev)

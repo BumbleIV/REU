@@ -1,59 +1,53 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 import numpy as np
 import scipy as sp
 import random
+import timeit
 
 import simulation_functions as sf
-import helper_functions as hf
-
-
-def RedBallBlueBall(G, n: int, blue_amt: int, red_amt: int) -> dict:
-    M = {}
-    DT = []
-    DEV = []
-
-    sf.add_to_G(G, blue_amt, red_amt)
-
-    sf.initialize_M(G, M)
-
-    V_2 = list(G.nodes)
-    random.shuffle(V_2)
-
-    for i in range(n):
-        sf.add_to_M(G, V_2, M)
-        sf.add_to_DT(G, M, i, DT)
-        sf.add_to_DEV(G, i, DEV)
-
-    return M, DT, DEV
+import plot_functions as pf
 
 
 def main():
     G = nx.read_edgelist('facebook_combined.txt',
-                         create_using=nx.Graph(),
-                         nodetype=int)
+                         create_using=nx.Graph(), nodetype=int)
 
-    n = 1000
-    blue_amt, red_amt = 5, 5
-    nodes_amt = len(list(G.nodes))
-    edges_amt = len(list(G.edges))
+    blue_amt, red_amt, n = 5, 5, 1000
 
-    M, DT, DEV = {}, [], []
+    sf.update_G(G, blue_amt, red_amt)
 
-    for i in range(5):
-        M, DT, DEV = RedBallBlueBall(G, n, blue_amt, red_amt)
+    M, DT, DEV = sf.initialize_M(G), [], []
 
-        hf.plot_M(M)
-        plt.savefig(f"Plots/M{i}_snap.png", dpi=300)
-        plt.close()
+    for i in range(n):
+        print(i)
+        sf.update_M(G, M)
+        sf.update_DEV(G, DEV)
 
-        hf.plot_DT(DT)
-        plt.savefig(f"Plots/DT{i}_snap.png", dpi=300)
-        plt.close()
+    # pf.plot_M(M)
+    # plt.savefig(f"Plots 2.0/M{0}_snap.png", dpi=1200)
+    # plt.close()
 
-        hf.plot_DEV(DEV)
-        plt.savefig(f"Plots/DEV{i}_snap.png", dpi=300)
-        plt.close()
+    # pf.plot_DT(DEV)
+    # plt.savefig(f"Plots 2.0/DT{0}_snap.png", dpi=1200)
+
+    pf.plot_DEV(n, DEV)
+    plt.savefig(f"Plots 2.0/DEV{0}_snap.png", dpi=1200)
+    plt.close()
+
+    pf.plot_DEGvBalls(G)
+    plt.savefig(f"Plots 2.0/DEGvBalls{0}_snap.png", dpi=1200)
+    plt.close()
+
+    pf.plot_LogDegvBalls(G)
+    plt.savefig(f"Plots 2.0/DegvBallsLog{0}_snap.png", dpi=1200)
+    plt.close()
+
+    pf.draw_graph(G)
+    plt.savefig(f"Plots 2.0/Graph{0}_snap.png", dpi=1200)
+    plt.close()
 
 
 if __name__ == "__main__":
